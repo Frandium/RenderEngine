@@ -1,4 +1,5 @@
 #include "mesh.h"
+#include "window.h"
 
 Mesh::Mesh() {
     verticesPtr vp = std::make_shared<std::vector<float>>(std::vector<float>({

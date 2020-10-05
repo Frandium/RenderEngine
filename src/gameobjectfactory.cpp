@@ -1,4 +1,5 @@
 #include "gameobjectfactory.h"
+#include "camera.h"
 
 GameObjectMap GameObjectFactory::s_gomap = GameObjectMap();
 
@@ -33,5 +34,11 @@ void GameObjectFactory::RenderGameObject() {
 			p.second->Render(view, viewpos);
 			Window::Instance()->Render();
 		}
+	}
+}
+
+void GameObjectFactory::TraverseGameObject(VisitGameObjectProc p) {
+	for (auto go : s_gomap) {
+		p(go.second);
 	}
 }

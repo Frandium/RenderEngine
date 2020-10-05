@@ -8,10 +8,11 @@
 
 class Model {
 public:
-	glm::mat4 GetModelMatrix();
-	inline void SetMesh(std::shared_ptr<Mesh> mp) { mesh = mp; }
-	bool SendToGPU();
 	Model(glm::vec3 position = glm::vec3(0, 0, 0), glm::vec3 rotation = glm::vec3(0, 0, 0), glm::vec3 scale = glm::vec3(1, 1, 1));
+	glm::mat4 GetModelMatrix() const;
+	inline glm::vec3 GetPosition() const { return m_position; }
+	inline void SetMesh(std::shared_ptr<Mesh> mp) { mesh = mp; }
+	bool SendToGPU() const;
 	void Translate(glm::vec3 dir, float dis);
 	void Rotate(glm::vec3 rotation);
 

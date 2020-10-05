@@ -32,6 +32,7 @@ int main() {
 
     while (!Input::GetKeyDown(GLFW_KEY_ESCAPE))
     {
+        Input::TestMouseDown();
         MonoBehaviour::Traverse(call_update);
         GameObjectFactory::RenderGameObject();
         Window::Instance()->Clear();

@@ -26,6 +26,7 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 }
 
 void ShaderToy::Init() {
+    std::cout << "shadertoy start" << std::endl;
     main_camera = Camera::Instance();
 
     glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
@@ -42,7 +43,7 @@ void ShaderToy::Init() {
     ShaderPtr cube_shader = std::make_shared<Shader>("shader/cube.vs", "shader/cube.fs");
     cube_shader->Use();
 
-    ModelPtr cube =std::make_shared<Model>(glm::vec3(0), glm::vec3(-55, 0, 0));
+    ModelPtr cube =std::make_shared<Model>(glm::vec3(0, 0, 9.5), glm::vec3(0, 0, 0));
     cube_shader->SetMat4("model", cube->GetModelMatrix());
     cube_shader->SetMat4("projection", main_camera->GetProjectionMatrix());
     cube_shader->SetMat4("view", main_camera->GetViewMatrix());
@@ -66,37 +67,47 @@ void ShaderToy::Init() {
     lasttime = glfwGetTime();
 
     cubego = GameObjectFactory::CreateGameObject("cube", cube, cube_shader);
+    cubeaabb = std::make_shared<AABB>(cubego, glm::vec3(1));
+    auto cube_mouse_callback = [=]()->void {
+        std::cout << "cube clicked" << std::endl;
+    };
+    cubeaabb->onClick = (cube_mouse_callback);
+
     lightgo = GameObjectFactory::CreateGameObject("light", light, light_shader);
 
-    glfwSetCursorPosCallback(Window::Instance()->glfwwindow(),mouse_callback);
+
+    std::cout << "shadertoy start end" << std::endl;
+//    glfwSetCursorPosCallback(Window::Instance()->glfwwindow(),mouse_callback);
 }
 
 void ShaderToy::Update() {
 
     float dis = camera_speed * GameTime::DeltaTime();
-    
+ 
     if (Input::GetKeyDown(GLFW_KEY_A)) {
-        main_camera->Translate(LEFT, dis);
+        Camera::Instance()->Translate(LEFT, dis);
     }
     else if (Input::GetKeyDown(GLFW_KEY_D)) {
-        main_camera->Translate(RIGHT,dis);
+        Camera::Instance()->Translate(RIGHT, dis);
     }
     else if (Input::GetKeyDown(GLFW_KEY_S)) {
-        main_camera->Translate(BACK,dis);
+        Camera::Instance()->Translate(BACK, dis);
     }
     else if (Input::GetKeyDown(GLFW_KEY_W)) {
-        main_camera->Translate(FRONT,dis);
+        Camera::Instance()->Translate(FRONT, dis);
     }
     else if (Input::GetKeyDown(GLFW_KEY_Q)) {
-        main_camera->Translate(UP, dis);
+        Camera::Instance()->Translate(UP, dis);
     }
     else if (Input::GetKeyDown(GLFW_KEY_E)) {
-        main_camera->Translate(DOWN, dis);
+        Camera::Instance()->Translate(DOWN, dis);
     }
 
-
-    cubego->Translate(glm::vec3(0, 1, 0), GameTime::DeltaTime());
-    cubego->Rotate(glm::vec3(0, 0, GameTime::DeltaTime() * 90));
+//    glm::vec3 pos = cubego->GetModel()->GetPosition();
+//    std::cout << "(" << pos.x << "," << pos.y << "," << pos.z << ")\n";
+    
+//    cubego->Translate(glm::vec3(0, 1, 0), GameTime::DeltaTime());
+//    cubego->Rotate(glm::vec3(0, 0, GameTime::DeltaTime() * 90));
 
 }
 

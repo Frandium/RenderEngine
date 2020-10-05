@@ -19,7 +19,7 @@ void GameObject::Rotate(glm::vec3 rotation) {
 	shader->SetMat4("model", model->GetModelMatrix());
 }
 
-void GameObject::Render(const glm::mat4& view, const glm::vec3& viewpos) {
+void GameObject::Render(const glm::mat4& view, const glm::vec3& viewpos) const {
 	model->SendToGPU();
 	shader->Use();
 	shader->SetMat4("view", view);

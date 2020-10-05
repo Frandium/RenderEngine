@@ -14,9 +14,10 @@ public:
 	GameObject(std::string _name, ModelPtr _model, ShaderPtr _shader);
 	void Translate(glm::vec3 direction, float distance);
 	void Rotate(glm::vec3 rotation);
-	void Render(const glm::mat4& view, const glm::vec3& viewpos);
+	void Render(const glm::mat4& view, const glm::vec3& viewpos) const;
+	inline ModelPtr GetModel() const { return model; }
 	inline void SetActive(bool b) { active = b; }
-	inline bool IsActive() { return active; }
+	inline bool IsActive() const { return active; }
 private:
 	std::string name; // ÎïÌåÃû×Ö
 	ModelPtr model;

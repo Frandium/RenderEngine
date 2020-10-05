@@ -8,5 +8,5 @@ protected:
 public:
 	inline void SetRaycastEnabled(bool b) { raycastEnabled = b; }
 	inline bool IsRaycastEnabled() { return raycastEnabled; }
-	virtual bool IsHitted(glm::vec3 origin, glm::vec3 dir) = 0;
+	virtual bool IsHitted(const glm::vec3& origin,const glm::vec3& dir) = 0;
 };

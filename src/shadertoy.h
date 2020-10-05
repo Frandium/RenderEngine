@@ -4,15 +4,12 @@
 #include <iostream>
 #include <string>
 #include "window.h"
-#include "Shader.h"
-#include "mesh.h"
+#include "texture2D.h"
 #include "input.h"
 #include "monobehaviour.h"
-#include "texture2D.h"
 #include "camera.h"
-#include "model.h"
-#include "gameobject.h"
 #include "gameobjectfactory.h"
+#include "AABB.h"
 
 class ShaderToy : protected MonoBehaviour {
 public:
@@ -22,6 +19,7 @@ public:
 	virtual void Init() override;
 private:
 	GameObjectPtr cubego;
+	AABBPtr cubeaabb;
 	GameObjectPtr lightgo;
 	CameraPtr main_camera;
 	float lasttime;

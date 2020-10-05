@@ -1,5 +1,6 @@
 #include "window.h"
 #include <iostream>
+#include "input.h"
 
 Window* Window::s_ins = nullptr;
 

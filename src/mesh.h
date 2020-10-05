@@ -3,7 +3,7 @@
 #include <GLFW/glfw3.h>
 #include <vector>
 #include <memory>
-#include "window.h"
+
 
 typedef std::shared_ptr<std::vector<float>> verticesPtr;
 typedef std::shared_ptr<std::vector<unsigned int>> indicesPtr;
