@@ -5,7 +5,8 @@
 
 class Texture2D {
 public:
-	Texture2D(const std::string& texpath,  int index=0, bool alpha = false, bool reverse=true);
+	// GL_TEXTURE0 保留给后处理，禁止使用
+	Texture2D(const std::string& texpath,  GLuint index=1u, bool alpha = false, bool reverse=true);
 private:
 	unsigned int m_texture;
 

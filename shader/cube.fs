@@ -28,7 +28,9 @@ uniform vec3 viewPos;
 
 void main()
 {
-	vec3 texColor = vec3(.5, .2, .2); //texture(MainTex, TexCoord).xyz;
+	vec4 texColor = vec4(texture(MainTex, TexCoord).xyz,1);
+	
+	FragColor = texColor;
 
 	vec3 ambient = material.ambient * light.ambient;
 
@@ -42,5 +44,6 @@ void main()
 	float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
 	vec3 specular = light.specular * material.specular * spec;
 
-    FragColor = vec4(ambient + diffuse + specular, 1.0);
+    FragColor = texColor * vec4(ambient + diffuse + specular, 1.0);
+
 }

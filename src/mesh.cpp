@@ -242,10 +242,10 @@ std::shared_ptr<Mesh> Mesh::GetPlane() {
     if (plane != nullptr) return plane;
 
     verticesPtr vp = std::make_shared<std::vector<float>>(std::vector<float>({
-        -.5f,  .5f,  0,
-        -.5f, -.5f, 0,
-         .5f, -.5f,  0,
-         .5f,  .5f,  0
+        -1,  1,  0,
+        -1, -1, 0,
+         1, -1,  0,
+         1,  1,  0
         }));
 
     indicesPtr ip = std::make_shared<std::vector<unsigned int>>(std::vector<unsigned int>({

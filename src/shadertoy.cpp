@@ -26,7 +26,7 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 }
 
 void ShaderToy::Init() {
-    std::cout << "shadertoy start" << std::endl;
+
     main_camera = Camera::Instance();
 
     glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
@@ -47,17 +47,17 @@ void ShaderToy::Init() {
     cube_shader->SetMat4("model", cube->GetModelMatrix());
     cube_shader->SetMat4("projection", main_camera->GetProjectionMatrix());
     cube_shader->SetMat4("view", main_camera->GetViewMatrix());
-    cube_shader->SetVec3("material.ambient", glm::vec3(1, .5f, .31f));
-    cube_shader->SetVec3("material.diffuse", glm::vec3(1, .5f, .31f));
-    cube_shader->SetVec3("material.specular", glm::vec3(.5f, .5f, .5f));
+    cube_shader->SetVec3("material.ambient", glm::vec3(1));
+    cube_shader->SetVec3("material.diffuse", glm::vec3(1));
+    cube_shader->SetVec3("material.specular", glm::vec3(1));
     cube_shader->SetFloat("material.shininess", 32.0f);
     cube_shader->SetVec3("light.position", lightPos);
     cube_shader->SetVec3("light.ambient", glm::vec3(.2f));
     cube_shader->SetVec3("light.diffuse", glm::vec3(.5f));
     cube_shader->SetVec3("light.specular", glm::vec3(1));
         
-    Texture2D tex0("texture/skadi.png");
-    cube_shader->SetInt("MainTex", 0);
+    Texture2D tex1("texture/skadi.png",1u);
+    cube_shader->SetInt("MainTex", 1);
 
     std::shared_ptr<Mesh> mp = Mesh::GetCube();// std::make_shared<Mesh>(vp, ip, uvp, np);
     
@@ -69,14 +69,12 @@ void ShaderToy::Init() {
     cubego = GameObjectFactory::CreateGameObject("cube", cube, cube_shader);
     cubeaabb = std::make_shared<AABB>(cubego, glm::vec3(1));
     auto cube_mouse_callback = [=]()->void {
-        std::cout << "cube clicked" << std::endl;
+        cubego->Rotate(glm::vec3(0,30 *  GameTime::DeltaTime(), 0));
     };
     cubeaabb->onClick = (cube_mouse_callback);
 
     lightgo = GameObjectFactory::CreateGameObject("light", light, light_shader);
 
-
-    std::cout << "shadertoy start end" << std::endl;
 //    glfwSetCursorPosCallback(Window::Instance()->glfwwindow(),mouse_callback);
 }
 

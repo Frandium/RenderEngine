@@ -12,11 +12,16 @@
 #include "model.h"
 #include "shadertoy.h"
 #include "gametime.h"
+#include "aftereffects.h"
 
 int main() {
     Window::Init(800, 600);
     GameTime gametime;
     
+    // 初始化 AfterEffects
+    AfterEffects::Instance();
+    
+    // 用户应该在这里实例化他所定义的类
     ShaderToy st;
 
     auto call_init = [](MonoBehaviour* mono)->void {
@@ -28,13 +33,15 @@ int main() {
         mono->Update();
     };
   
-    Window::Instance()->Clear();
 
     while (!Input::GetKeyDown(GLFW_KEY_ESCAPE))
     {
         Input::TestMouseDown();
         MonoBehaviour::Traverse(call_update);
+        AfterEffects::Instance()->SetTextureBufferAsRenderTarget();
         GameObjectFactory::RenderGameObject();
+        AfterEffects::Instance()->SetDefaultWindowAsRenderTarget();
+//        GameObjectFactory::RenderGameObject();
         Window::Instance()->Clear();
     }
 

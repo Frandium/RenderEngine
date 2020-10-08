@@ -12,10 +12,10 @@ void Input::TestMouseDown() {
 		// 目前的视角，大概是水平方向 45°，竖直方向 35°
 		float pitch = Camera::Instance()->GetPitch() + (y / Window::Instance()->Height() - 0.5) * 35;
 		float yaw = Camera::Instance()->GetYaw() + (x / Window::Instance()->Width() - 0.5) * 45;
-		std::cout << pitch << ' ' << yaw << std::endl;
 		float dirx = sin(glm::radians(yaw));
-	    float diry = sin(glm::radians(pitch));
+	    float diry = - sin(glm::radians(pitch));
 		float dirz =  -cos(glm::radians(pitch)) * cos(glm::radians(yaw));
+		std::cout << '(' << dirx << ',' << diry << ',' << dirz << ')' << std::endl;
 		glm::vec3 direction = glm::normalize(glm::vec3(dirx, diry, dirz));
 		auto test_raycast = [=](AABB* aabb)->void {
 			if (aabb->IsRaycastEnabled() && aabb->IsHitted(Camera::Instance()->GetPosition(), direction)) {

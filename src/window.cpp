@@ -53,6 +53,7 @@ Window::Window(float w, float h):
     }
     glViewport(0, 0, w, h);
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_STENCIL_TEST);
 
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
